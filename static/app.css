@@ -1,0 +1,145 @@
+body {
+      background-image: url('images/vi-bg.png');
+      background-size: cover;
+      background-position: center;
+      background-color: #260c44;
+      background-repeat: no-repeat;
+}
+
+a {
+    color: #1704f9;
+}
+
+.btn:hover, .btn-floating:hover {
+     background: #111111;
+}
+
+.btn, .btn-floating {
+     background: #aaa223;
+}
+
+.dict {
+    # background: #00800040;
+    # border: green;
+    # border-width: 2px;
+    # border-style: solid;
+    padding: 5px;
+    margin: 5px;
+    min-width: 150px;
+    display: inline-block;
+}
+
+.property {
+    background: #80000040;
+    border: red;
+    border-width: 2px;
+    border-style: solid;
+    padding: 5px;
+    margin: 5px;
+    min-width: 150px;
+    display: inline-block;
+}
+
+.string {
+    # background: #80800040;
+    # border: red;
+    # border-width: 1px;
+    # border-style: solid;
+    padding: 5px;
+    margin: 5px;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.array {
+    # background: #00008040;
+    # border: blue;
+    # border-width: 2px;
+    # border-style: solid;
+    padding: 5px;
+    margin: 5px;
+    min-width: 150px;
+}
+
+.inblock {
+    padding: 5px;
+    margin: 5px;
+    display: inline-block;
+
+}
+
+.editor {
+        height: 100%;
+        min-height: 50px;
+        width: 100%;
+        font-size: 14px;
+    }
+
+.solutionEditor {
+        height: 100%;
+        min-height: 50px;
+        width: 100%;
+        font-size: 14px;
+    }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.card {
+    min-width: 150px;
+}
+
+
+code {
+    color: #ffeb3b;
+}
+
+
+.col {
+  padding: 0px;
+  margin: 0px;
+}
+
+.card {
+  padding: 0px;
+  margin: 0px;
+}
+
+.card-title {
+  margin-top: 50px;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.status-bar-items {
+    font-size: 9px;
+    border-radius: 2px;
+    margin: 2px;
+    padding: 5px;
+    color: white;
+    background-color: #7b9e9b;
+}
+
+.myMarker {
+  position:absolute;
+  background:rgba(100,200,100,0.5);
+  z-index:20
+}
+
+.questions_panel {
+  overflow: scroll;
+  border-radius: 5px;
+  padding: 20px
+}
+
+
+table, th, td {
+    2px solid #4CAF50;
+}

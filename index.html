@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="static/app.css" />
+
+    <script src="static/vi.js"></script>
+	<link href="static/vi.css" type="text/css" rel="stylesheet"/>
+	
+    <script type='text/javascript' src="https://cdn.jsdelivr.net/npm/jsondiffpatch/dist/jsondiffpatch.umd.min.js"></script>
+    <link rel="stylesheet" href="static/json-diff-formatters/style.css" type="text/css" />
+    <link rel="stylesheet" href="static/json-diff-formatters/html.css" type="text/css" />
+    <link rel="stylesheet" href="static/json-diff-formatters/annotated.css" type="text/css" />
+</head>
+<body>
+    <!-- content -->
+
+    <div>
+      <!-- Content here -->
+    <div ng-app="myApp" ng-controller="myCtrl">
+
+     <div class="row">
+
+        <div class="col s7">
+              <textarea id="editor" style="width: 10%">
+              </textarea>
+        </div>
+
+
+        <div class="col s5 center" ng-show="lastQuestion && correct_answer" style="background-color: #4e5255; z-index: 1; position: relative; margin-top: 48px; padding-bottom: 100px; height: 90vh;">
+               <h3 ng-class="{'black-text': lastQuestion && correct_answer}" class="white-text">Поздравляю!!</h3>
+               <iframe ng-src="{{ feedback_url }}" width="640" height="1155" frameborder="0" marginheight="0" marginwidth="0">Загрузка..</iframe>
+        </div>
+
+        <div class="col s5" ng-hide="lastQuestion && correct_answer">
+             <div ng-show="!showSolutionFlag" class="animated questions_panel" style="background-color: #4e5255; z-index: 1; position: relative; margin-top: 48px; padding-bottom: 100px;  height: 90vh;">
+                 <div class="white-text" role="alert">
+
+
+                     <div class="center">
+                        <span ng-repeat="question in questions track by $index" ng-class="{'green pulse': (current_question_number == $index)}" class="status-bar-items animated infinte" >
+                          <!--{{ answer_status }}-->
+                          {{ $index + 1 }}
+                        </span>
+                         <button ng-if="!correct_answer" ng-class="{disabled: lastQuestion}"  ng-click="nextQuestion()" type="button" class="waves-effect waves-light btn-floating right"> > </button>
+                         <button ng-if="!correct_answer" ng-class="{disabled: current_question_number < 1}" ng-click="previousQuestion()" type="button" class="waves-effect waves-light btn-floating right"> < </button>
+                     </div>
+
+                     <h5>{{ current_question.title }}</h5>
+
+                     <p class="typewriter" markdown-to-html="current_question.question" ng-show="current_question.question"></p>
+                     <p class="typewriter" markdown-to-html="current_question.subText" ng-show="current_question.subText"></p>
+
+
+                     <button ng-if="current_question.hint && !lastQuestion" ng-click="showHint()" type="button" class="waves-effect waves-light btn">Подсказка</button>
+                     <button ng-if="!lastQuestion" ng-click="resetAnswer()" type="button" class="waves-effect waves-light btn">Сбросить Вопрос</button>
+                     <div ng-show="showHintFlag" class="animated fadeIn">
+
+                         <p style="background: #080e2f; font-family: monospace;" markdown-to-html="current_question.hint" ng-show="current_question.hint"></p>
+                         <div id="visual" ></div>
+                     </div>
+                 </div>
+                 <p style="position: absolute; bottom: 30px; color: white">Внимание! Это симуляция редактора Vi. Он не является полноценым и не имеет всех функций!</p>
+                 <p style="position: absolute; bottom: 0; color: white">Используй Chrome. Группа в телеграм <a href="https://t.me/RoToRoCloud" target="_blank">RoToRoCloud</a></p>
+
+             </div>
+
+
+         </div>
+
+
+
+        </div>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>{{ modal_header }}</h4>
+            <p>{{ modal_message }}</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+
+    <!-- dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.11/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-showdown/1.1.0/ng-showdown.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/yamljs/0.3.0/yaml.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.13.1/js-yaml.min.js" integrity="sha256-ry6nlLQ1JmRl5RUPQ4eSuaSp/rGNPvl144WHHs7BiNE=" crossorigin="anonymous"></script>
+
+    <!-- code -->
+    <script src="static/inventory-reader-2.js"></script>
+    <script src="static/ansible-json-test.js"></script>
+    <!-- <script src="static/questions_ansible_playbook.js"></script> -->
+    <script src="static/ace-editor.js"></script>
+
+    <script>
+        window.onload = function() {
+
+        };
+    </script>
+
+</body>
+</html>
